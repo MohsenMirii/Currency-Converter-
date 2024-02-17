@@ -13,9 +13,9 @@ no direct way to do so. Our currency converter should be able to do this by find
 our converter in order to convert CAD to EUR to first convert the amount to USD, and then to EUR. Implement ICurrencyConverter with the following 
 requirements in mind:
 
-▪  The converter should find the shortest conversion path (if any).
-▪  The converter is a singleton with potentially multiple threads invoking its Convert method.
-▪  Because the Convert method is frequently invoked, optimization is top priority in terms of
+- The converter should find the shortest conversion path (if any).
+- The converter is a singleton with potentially multiple threads invoking its Convert method.
+- Because the Convert method is frequently invoked, optimization is top priority in terms of
 
 minimum locking, less processing cost etc.
 

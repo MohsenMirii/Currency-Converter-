@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{10AED93A-A218-4ADF-9990-91ABBE644EF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{C85E4B5F-9537-4629-A8FD-3C662301CAF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{12F33AFA-7652-45AC-9CCF-C84DA4A997ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Share", "Share\Share.csproj", "{DF2498D2-B1CE-4EC7-9AE7-D47A94E6A668}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10AED93A-A218-4ADF-9990-91ABBE644EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10AED93A-A218-4ADF-9990-91ABBE644EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AED93A-A218-4ADF-9990-91ABBE644EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10AED93A-A218-4ADF-9990-91ABBE644EF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C85E4B5F-9537-4629-A8FD-3C662301CAF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C85E4B5F-9537-4629-A8FD-3C662301CAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C85E4B5F-9537-4629-A8FD-3C662301CAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C85E4B5F-9537-4629-A8FD-3C662301CAF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F33AFA-7652-45AC-9CCF-C84DA4A997ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F33AFA-7652-45AC-9CCF-C84DA4A997ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F33AFA-7652-45AC-9CCF-C84DA4A997ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F33AFA-7652-45AC-9CCF-C84DA4A997ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF2498D2-B1CE-4EC7-9AE7-D47A94E6A668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF2498D2-B1CE-4EC7-9AE7-D47A94E6A668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF2498D2-B1CE-4EC7-9AE7-D47A94E6A668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF2498D2-B1CE-4EC7-9AE7-D47A94E6A668}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7882034-E8F5-4812-A3FC-9E640CC78118}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/mohsenmiri95
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = IOC\\IOC.csproj
+		SccProjectTopLevelParentUniqueName1 = Meetility.sln
+		SccProjectName1 = IOC
+		SccLocalPath1 = IOC
+		SccProjectUniqueName2 = ServiceLayer\\ServiceLayer.csproj
+		SccProjectName2 = ServiceLayer
+		SccLocalPath2 = ServiceLayer
+		SccProjectUniqueName3 = Meetility\\Meetility.csproj
+		SccProjectTopLevelParentUniqueName3 = Meetility.sln
+		SccProjectName3 = Meetility
+		SccLocalPath3 = Meetility
+		SccProjectUniqueName4 = DataAccess\\DataAccess.csproj
+		SccProjectTopLevelParentUniqueName4 = Meetility.sln
+		SccProjectName4 = DataAccess
+		SccLocalPath4 = DataAccess
+		SccProjectUniqueName5 = BusinessLogic\\BusinessLogic.csproj
+		SccProjectTopLevelParentUniqueName5 = Meetility.sln
+		SccProjectName5 = BusinessLogic
+		SccLocalPath5 = BusinessLogic
+		SccProjectUniqueName6 = ViewModels\\DataModel.csproj
+		SccProjectTopLevelParentUniqueName6 = Meetility.sln
+		SccProjectName6 = ViewModels
+		SccLocalPath6 = ViewModels
+		SccProjectUniqueName7 = Meetility.API\\Meetility.API.csproj
+		SccProjectTopLevelParentUniqueName7 = Meetility.sln
+		SccProjectName7 = Meetility.API
+		SccLocalPath7 = Meetility.API
+	EndGlobalSection
+EndGlobal

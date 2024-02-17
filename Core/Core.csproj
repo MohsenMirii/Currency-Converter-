@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Core</AssemblyName>
+        <RootNamespace>Core</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
+        <PackageReference Include="Mapster" Version="7.4.0-pre05" />
+        <PackageReference Include="MediatR" Version="11.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="6.0.16" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+        <PackageReference Include="NetTopologySuite.IO" Version="1.14.0.1" />
+        <PackageReference Include="ProjNet" Version="2.0.0" />
+        <PackageReference Include="ProjNet.SRID" Version="1.0.1" />
+        <PackageReference Include="ProjNet.SRID.Core" Version="1.0.0" />
+        <PackageReference Include="ProjNET4GeoAPI" Version="1.4.1" />
+        <PackageReference Include="StackExchange.Redis" Version="2.7.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Data\Data.csproj" />
+      <ProjectReference Include="..\Share\Share.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Data\Data.csproj" />
+      <ProjectReference Include="..\Share\Share.csproj" />
+    </ItemGroup>
+</Project>

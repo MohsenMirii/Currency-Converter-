@@ -1,4 +1,4 @@
-﻿#region
+﻿
 
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Share.Contracts;
 using Share.Misc;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

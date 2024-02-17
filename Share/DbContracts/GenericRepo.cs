@@ -1,11 +1,11 @@
-﻿#region
+﻿
 
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Share.Contracts;
 using Share.Misc;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

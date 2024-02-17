@@ -1,9 +1,9 @@
-﻿#region
+﻿
 
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 
-#endregion
+
 
 namespace Share.Misc;
 

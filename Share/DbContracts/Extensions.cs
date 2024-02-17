@@ -1,4 +1,4 @@
-﻿#region
+﻿
 
 using System.Linq.Expressions;
 using System.Reflection;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.ModelBuilder;
 using Share.Contracts;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

@@ -1,10 +1,10 @@
-﻿#region
+﻿
 
 using Microsoft.EntityFrameworkCore;
 using Scrutor.AspNetCore;
 using Share.Contracts;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

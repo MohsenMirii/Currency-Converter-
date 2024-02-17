@@ -1,6 +1,3 @@
-#region
-
-using Core.ConversionRates.Caching;
 using Data.Entities;
 using JetBrains.Annotations;
 using MediatR;
@@ -8,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Share.Contracts;
 using Share.ConversionRates.Commands;
 using Share.DbContracts;
-
-#endregion
+using Share.Helpers;
 
 namespace Core.ConversionRates.Commands;
 
@@ -17,9 +13,10 @@ namespace Core.ConversionRates.Commands;
 public class UpdateConfigurationHandler : IRequestHandler<UpdateConfigurationCommand, Unit> {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepo<ConversionRate> _conversionRepo;
-    private readonly ICaching<List<ConversionCacheDto>> _conversionCache;
+    private readonly ICaching<Dictionary<string, Dictionary<string, double>>> _conversionCache;
 
-    public UpdateConfigurationHandler(IUnitOfWork unitOfWork, IRepo<ConversionRate> conversionRepo, ICaching<List<ConversionCacheDto>> conversionCache)
+    public UpdateConfigurationHandler(IUnitOfWork unitOfWork, IRepo<ConversionRate> conversionRepo,
+        ICaching<Dictionary<string, Dictionary<string, double>>> conversionCache)
     {
         _unitOfWork = unitOfWork;
         _conversionRepo = conversionRepo;
@@ -39,15 +36,16 @@ public class UpdateConfigurationHandler : IRequestHandler<UpdateConfigurationCom
             // update conversion rate
             if (conversionRate != null)
             {
-                conversionRate.Amount = item.Item3;
+                _conversionRepo.UpdateWhere(_ => _.Id == conversionRate.Id)
+                    .Set(_ => _.Amount, item.Item3);
                 continue;
             }
 
             // create new conversion rate in db
             conversionRate = new ConversionRate
             {
-                FromCurrency = item.Item1,
-                ToCurrency = item.Item2,
+                FromCurrency = item.Item1.Clean(),
+                ToCurrency = item.Item2.Clean(),
                 Amount = item.Item3
             };
 
@@ -59,7 +57,7 @@ public class UpdateConfigurationHandler : IRequestHandler<UpdateConfigurationCom
         await _unitOfWork.SaveChangesAsync();
 
         // set cache with new data
-        await _conversionCache.GetOrSet(cancellationToken);
+        await _conversionCache.Reset(cancellationToken);
 
         return Unit.Value;
     }

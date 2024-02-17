@@ -1,8 +1,8 @@
-﻿#region
+﻿
 
 using System.Security.Cryptography;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

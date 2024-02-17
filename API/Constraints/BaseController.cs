@@ -1,8 +1,5 @@
-﻿#region
+﻿using Microsoft.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
-
-#endregion
 
 namespace API.Constraints;
 

@@ -1,12 +1,7 @@
-#region
-
 using System.ComponentModel.DataAnnotations;
 using JetBrains.Annotations;
 using Share.Contracts;
 using Share.ConversionRates.Constraints;
-
-#endregion
-
 namespace Data.Entities;
 
 [UsedImplicitly(ImplicitUseTargetFlags.Members)]
@@ -19,7 +14,7 @@ public class ConversionRate : HasFullAudit {
     [MaxLength(CurrencyConstraints.MaxLength)]
     public string ToCurrency { get; set; } = null!;
 
-    [Range(CurrencyConstraints.MinRate, double.MaxValue)]
+    [Range(CurrencyConstraints.MinAmount, double.MaxValue)]
 
     public double Amount { get; set; }
 }

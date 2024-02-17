@@ -1,8 +1,8 @@
-﻿#region
+﻿
 
 using JetBrains.Annotations;
 
-#endregion
+
 
 namespace Share.Exceptions;
 

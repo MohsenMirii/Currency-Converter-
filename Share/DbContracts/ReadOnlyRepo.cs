@@ -1,4 +1,4 @@
-﻿#region
+﻿
 
 using System.Linq.Expressions;
 using System.Reflection;
@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Share.Misc;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

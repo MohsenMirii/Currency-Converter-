@@ -1,11 +1,7 @@
-#region
-
 using JetBrains.Annotations;
 using MediatR;
 using Share.ConversionRates.Constraints;
 using Share.Exceptions;
-
-#endregion
 
 namespace Share.ConversionRates.Commands;
 
@@ -25,7 +21,7 @@ public class UpdateConfigurationCommand : IRequest<Unit> {
             var invalidTuples = value.Where(
                 tuple => tuple.Item1.Length is > CurrencyConstraints.MaxLength or < CurrencyConstraints.MinLength
                          || tuple.Item2.Length is > CurrencyConstraints.MaxLength or < CurrencyConstraints.MinLength
-                         || tuple.Item3 <= CurrencyConstraints.MinRate
+                         || tuple.Item3 <= CurrencyConstraints.MinAmount
                          || tuple.Item1 == tuple.Item2
             ).ToList();
 
@@ -34,9 +30,9 @@ public class UpdateConfigurationCommand : IRequest<Unit> {
                 throw new BadRequest400Exception(
                     $"Error: Currency title length must be " +
                     $"between {CurrencyConstraints.MinLength} and {CurrencyConstraints.MaxLength} , "
-                    + $"and the Rate must be bigger than {CurrencyConstraints.MinRate}"
+                    + $"and the Rate must be bigger than {CurrencyConstraints.MinAmount}"
                     + $" Invalid tuples: {string.Join(", ", invalidTuples.Select(tuple => $"({tuple.Item1}, {tuple.Item2})"))}");
-
+            
             _conversionRates = value;
         }
     }

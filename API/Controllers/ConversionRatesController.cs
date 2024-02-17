@@ -1,11 +1,7 @@
-#region
-
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Share.ConversionRates.Commands;
 using Share.ConversionRates.Queries;
-
-#endregion
 
 namespace API.Controllers;
 

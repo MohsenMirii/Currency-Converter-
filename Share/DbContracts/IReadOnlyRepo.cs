@@ -1,8 +1,8 @@
-#region
+
 
 using System.Linq.Expressions;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

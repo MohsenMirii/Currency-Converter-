@@ -1,19 +1,16 @@
-﻿#region
-
-using System.Reflection;
+﻿using System.Reflection;
+using Data.DbContexts;
 using JetBrains.Annotations;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Scrutor;
 using Scrutor.AspNetCore;
+using Share.DbContracts;
 using Share.Misc;
-
-#endregion
 
 namespace API;
 
 public static class GeneralHelpers {
-    private const string AssemblyPrefix = "Feed.";
-
     private static readonly Lazy<Assembly[]> AllAssemblies = new(() =>
     {
         var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
@@ -25,7 +22,10 @@ public static class GeneralHelpers {
 
         toLoad.ForEach(path => loadedAssemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path))));
 
-        return loadedAssemblies.Where(r => r.FullName!.StartsWith(AssemblyPrefix)).ToArray();
+        return loadedAssemblies.Where(r => r.FullName!.StartsWith("API")
+                                           || r.FullName!.StartsWith("Data")
+                                           || r.FullName!.StartsWith("Core")
+                                           || r.FullName!.StartsWith("Share")).ToArray();
     });
 
     [PublicAPI]
@@ -41,6 +41,15 @@ public static class GeneralHelpers {
     {
         serviceCollection.AddScoped<ICancellation, Cancellation>();
 
+        serviceCollection.AddDbContext<CurrencyDb>(options =>
+        {
+            options.UseSqlServer("Server=82.115.26.134;Initial Catalog=Currency;User ID=sa;" +
+                                 "Password=L(63luggHIkedq5>;TrustServerCertificate=True",
+                sqlOption => { sqlOption.UseNetTopologySuite(); });
+        });
+
+        serviceCollection.AddUoWAndRepoServices<CurrencyDb>();
+        serviceCollection.AddMemoryCache();
         return serviceCollection.Scan(setup => setup
             .FromAssemblies(AllAssemblies.Value)
             .AddClasses(classes => classes.AssignableTo<ISingletonLifetime>(), false)
@@ -67,5 +76,7 @@ public static class GeneralHelpers {
             .UsingRegistrationStrategy(RegistrationStrategy.Skip)
             .AsSelf()
             .WithScopedLifetime());
+        
+        
     }
 }

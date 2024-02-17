@@ -1,8 +1,8 @@
-﻿#region
+﻿
 
 using Scrutor.AspNetCore;
 
-#endregion
+
 
 namespace Share.Misc;
 

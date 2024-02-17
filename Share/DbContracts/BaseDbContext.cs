@@ -1,10 +1,10 @@
-#region
+
 
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Share.Contracts;
 
-#endregion
+
 
 namespace Share.DbContracts;
 

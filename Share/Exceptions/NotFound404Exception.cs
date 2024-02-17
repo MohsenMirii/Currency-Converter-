@@ -1,8 +1,8 @@
-﻿#region
+﻿
 
 using Microsoft.Extensions.Logging;
 
-#endregion
+
 
 namespace Share.Exceptions;
 

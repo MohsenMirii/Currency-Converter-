@@ -1,10 +1,10 @@
-#region
+
 
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 
-#endregion
+
 
 namespace Share.Contracts;
 

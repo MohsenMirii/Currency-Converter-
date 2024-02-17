@@ -1,6 +1,3 @@
-#region
-
-using Core.ConversionRates.Caching;
 using Data.Entities;
 using JetBrains.Annotations;
 using MediatR;
@@ -8,17 +5,17 @@ using Share.Contracts;
 using Share.ConversionRates.Commands;
 using Share.DbContracts;
 
-#endregion
-
 namespace Core.ConversionRates.Commands;
 
 [UsedImplicitly]
 public class ClearConfigurationHandler : IRequestHandler<ClearConfigurationCommand, Unit> {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepo<ConversionRate> _conversionRepo;
-    private readonly ICaching<List<ConversionCacheDto>> _conversionCache;
+    private readonly ICaching<Dictionary<string, Dictionary<string, double>>> _conversionCache;
 
-    public ClearConfigurationHandler(IRepo<ConversionRate> conversionRepo, IUnitOfWork unitOfWork, ICaching<List<ConversionCacheDto>> conversionCache)
+    public ClearConfigurationHandler(IRepo<ConversionRate> conversionRepo,
+        IUnitOfWork unitOfWork,
+        ICaching<Dictionary<string, Dictionary<string, double>>> conversionCache)
     {
         _conversionRepo = conversionRepo;
         _unitOfWork = unitOfWork;
@@ -34,8 +31,10 @@ public class ClearConfigurationHandler : IRequestHandler<ClearConfigurationComma
         await _unitOfWork.SaveChangesAsync();
 
         // clean cache
-        await _conversionCache.GetOrSet(cancellationToken);
+        await _conversionCache.Reset(cancellationToken);
 
         return Unit.Value;
     }
+    
+    
 }

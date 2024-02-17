@@ -1,8 +1,8 @@
-﻿#region
+﻿
 
 using Share.Helpers;
 
-#endregion
+
 
 namespace Share.Exceptions;
 

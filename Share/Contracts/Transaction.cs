@@ -1,9 +1,9 @@
-﻿#region
+﻿
 
 using Microsoft.EntityFrameworkCore.Storage;
 using Share.Misc;
 
-#endregion
+
 
 namespace Share.Contracts;
 

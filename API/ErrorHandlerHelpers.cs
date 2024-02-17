@@ -1,14 +1,10 @@
-﻿#region
-
-using System.Net;
+﻿using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Share.Exceptions;
 using Share.Exceptions.ExceptionHandler;
 using Share.Helpers;
-
-#endregion
 
 namespace API;
 
@@ -92,7 +88,8 @@ public static class ErrorHandlerHelpers {
             case Unauthorized401Exception:
                 if (logLevel == LogLevel.None)
                     logLevel = LogLevel.Warning;
-                result = new ApiErrorResult(new[] { "You don't have permission(401)" }, StandardErrorCodes.Unauthorized);
+                result = new ApiErrorResult(new[] { "You don't have permission(401)" },
+                    StandardErrorCodes.Unauthorized);
                 response.StatusCode = (int)HttpStatusCode.Unauthorized;
 
                 break;
@@ -142,9 +139,11 @@ public static class ErrorHandlerHelpers {
         {
             var response = context.Response.StatusCode switch
             {
-                401 => new ApiErrorResult(new[] { "You don't have permission(401)" }, StandardErrorCodes.Unauthorized), 403 => new ApiErrorResult(new[] { "دسترسی به این قسمت برای شما امکان پذیر نیست (403)" },
+                401 => new ApiErrorResult(new[] { "You don't have permission(401)" }, StandardErrorCodes.Unauthorized),
+                403 => new ApiErrorResult(new[] { "دسترسی به این قسمت برای شما امکان پذیر نیست (403)" },
                     StandardErrorCodes.Forbidden),
-                < 500 => new ApiErrorResult(new[] { "Unknown problem, please try again" }, StandardErrorCodes.Unknown), _ => new ApiErrorResult(new[] { "متاسفانه مرکز با مشکل مواجه شده است" }, StandardErrorCodes.Server)
+                < 500 => new ApiErrorResult(new[] { "Unknown problem, please try again" }, StandardErrorCodes.Unknown),
+                _ => new ApiErrorResult(new[] { "متاسفانه مرکز با مشکل مواجه شده است" }, StandardErrorCodes.Server)
             };
 
             var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(1));

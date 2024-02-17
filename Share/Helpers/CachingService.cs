@@ -1,10 +1,7 @@
-﻿#region
-
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Microsoft.Extensions.Caching.Memory;
 using Scrutor.AspNetCore;
 
-#endregion
 
 namespace Share.Helpers;
 
@@ -17,7 +14,7 @@ public class CachingService : ISelfScopedLifetime {
         _memoryCache = memoryCache;
     }
 
-    public async Task<T> GetOrSet<T>(string key, Func<Task<T>> setterFunction)
+    public async Task<T> GetOrSet<T>(string key, T setterFunction)
     {
 #pragma warning disable CS8600
         if (_memoryCache.TryGetValue(key, out T cachedValue))
@@ -25,7 +22,15 @@ public class CachingService : ISelfScopedLifetime {
 
             return cachedValue!;
 
-        cachedValue = await setterFunction();
+        cachedValue =  setterFunction;
+        _memoryCache.Set(key, cachedValue);
+
+        return cachedValue;
+    }
+
+    public async Task<T> Reset<T>(string key, T setterFunction)
+    {
+        var cachedValue =  setterFunction;
         _memoryCache.Set(key, cachedValue);
 
         return cachedValue;

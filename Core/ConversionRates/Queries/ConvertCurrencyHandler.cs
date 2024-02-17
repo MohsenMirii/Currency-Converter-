@@ -1,21 +1,16 @@
-#region
-
-using Core.ConversionRates.Caching;
 using JetBrains.Annotations;
 using MediatR;
 using Share.Contracts;
 using Share.ConversionRates.Queries;
 using Share.Exceptions;
 
-#endregion
-
 namespace Core.ConversionRates.Queries;
 
 [UsedImplicitly]
 public class ConvertCurrencyHandler : IRequestHandler<ConvertCurrencyQuery, ConvertCurrencyResponse> {
-    private readonly ICaching<List<ConversionCacheDto>> _conversionCache;
+    private readonly ICaching<Dictionary<string, Dictionary<string, double>>> _conversionCache;
 
-    public ConvertCurrencyHandler(ICaching<List<ConversionCacheDto>> conversionCache)
+    public ConvertCurrencyHandler(ICaching<Dictionary<string, Dictionary<string, double>>> conversionCache)
     {
         _conversionCache = conversionCache;
     }
@@ -24,33 +19,55 @@ public class ConvertCurrencyHandler : IRequestHandler<ConvertCurrencyQuery, Conv
         CancellationToken cancellationToken)
     {
         var conversionRates = await _conversionCache.GetOrSet(cancellationToken);
-        var convertedRate = Convert(request.FromCurrency, request.ToCurrency, request.Amount, conversionRates);
 
+        var convertedRate = Convert(
+            request.FromCurrency,
+            request.ToCurrency,
+            request.Amount,
+            conversionRates
+        );
+        
         return new ConvertCurrencyResponse
         {
             Result = convertedRate
         };
     }
 
-    private static double Convert(string fromCurrency, string toCurrency, double amount, List<ConversionCacheDto> conversionRates)
+    private static double Convert(string sourceCurrency, string targetCurrency, double amount,Dictionary<string, Dictionary<string, double>> graph)
     {
-        if (fromCurrency == toCurrency)
-            return amount;
+        if (!graph.ContainsKey(sourceCurrency) || !graph.ContainsKey(targetCurrency))
+            throw new NotFound404Exception("Desired data not found in the data center");
 
-        var conversionRate = conversionRates.FirstOrDefault(_ => _.SourceCurrency == fromCurrency && _.DestinationCurrency == toCurrency);
+        var distances = new Dictionary<string, double>();
+        var visited = new HashSet<string>();
 
-        if (conversionRate != null)
-            return amount * conversionRate.Rate;
+        foreach (var currency in graph.Keys)
+            distances[currency] = double.MaxValue;
 
-        // Find conversion path
-        foreach (var pair in conversionRates)
+        distances[sourceCurrency] = 1;
+
+        while (true)
         {
-            if (pair.SourceCurrency != fromCurrency) continue;
-            var intermediateAmount = amount * pair.Rate;
-            var result = Convert(pair.DestinationCurrency, toCurrency, intermediateAmount, conversionRates);
-            return result;
+            string minCurrency = null;
+            foreach (var currency in graph.Keys)
+            {
+                if (!visited.Contains(currency) && (minCurrency == null || distances[currency] < distances[minCurrency]))
+                {
+                    minCurrency = currency;
+                }
+            }
+
+            if (minCurrency == null)
+                break;
+
+            visited.Add(minCurrency);
+
+            foreach (var neighbor in graph[minCurrency])
+            {
+                distances[neighbor.Key] = Math.Min(distances[neighbor.Key], distances[minCurrency] * neighbor.Value);
+            }
         }
 
-        throw new NotFound404Exception("No conversion path found.");
+        return amount * distances[targetCurrency];
     }
 }
